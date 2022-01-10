@@ -6,5 +6,6 @@ generates:
   ./src/utils/types.ts:
     plugins:
       - typescript
+      - typescript-operations
     config:
       maybeValue: T

@@ -650,3 +650,8 @@ export type TypedMetaData = {
   stringArrayMetadata: Array<Maybe<StringArrayMetadata>>;
   stringMetadata: Array<Maybe<StringMetadata>>;
 };
+
+export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_1_Query = { __typename?: 'QueryType', landingpageList: { __typename?: 'LandingpageModelResults', items: Array<{ __typename?: 'LandingpageModel', title?: string, slug?: string, sections?: Array<{ __typename: 'CtaModel', _path?: string, callToAction?: string, url?: string } | { __typename: 'HeroModel', _path?: string, title?: string, subtitle?: string, description?: { __typename?: 'MultiFormatString', html?: string }, image?: { __typename: 'ArchiveRef' } | { __typename: 'CtaModel' } | { __typename: 'DocumentRef' } | { __typename: 'HeroModel' } | { __typename: 'ImageRef', _authorUrl?: string, width?: number, height?: number } | { __typename: 'LandingpageModel' } | { __typename: 'MultimediaRef' } | { __typename: 'PageRef' } | { __typename: 'TextModel' } } | { __typename: 'LandingpageModel' } | { __typename: 'TextModel', _path?: string, title?: string, content?: { __typename?: 'MultiFormatString', html?: string } }> }> } };

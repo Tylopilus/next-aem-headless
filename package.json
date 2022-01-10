@@ -6,9 +6,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen --config ./graphql.config.yml"
   },
   "dependencies": {
+    "@graphql-codegen/typescript-operations": "^2.2.2",
     "graphql": "^16.2.0",
     "graphql-request": "^3.7.0",
     "next": "12.0.7",

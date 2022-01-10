@@ -1,0 +1,8 @@
+schema: output.gql
+documents: ./src/queries/**/*.ts
+generates:
+  types.ts:
+    plugins:
+      - typescript
+    config:
+      maybeValue: T

@@ -5,18 +5,21 @@ import type {
 } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { HeroModel } from '../components/HeroMode';
+import { HeroModel } from '../components/HeroModel';
 import { TextModel } from '../components/TextModel';
 import { landingPageQuery } from '../queries/landingpagequery';
 import { graphQLClient } from '../utils/graphqlClient';
+import { AllFragmentModels, LandingpageModel, QueryType } from '../utils/types';
 
-const Home: NextPage = ({
+const Home = ({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log(data);
+  if (!data || !data.sections) {
+    return <div>error while getting Data</div>;
+  }
   return (
     <>
-      {data.sections.map((section: any) => {
+      {data.sections.map((section) => {
         return <SectionResolver section={section} key={section._path} />;
       })}
     </>
@@ -25,19 +28,19 @@ const Home: NextPage = ({
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  console.log(context.resolvedUrl);
-  const data = await graphQLClient.request(landingPageQuery);
-  return {
-    props: {
-      data:
-        data.landingpageList &&
-        data.landingpageList.items.find((item: any) => item.slug === '/'),
-    },
-  };
+export const getServerSideProps = async () => {
+  const data = await graphQLClient.request<QueryType>(landingPageQuery);
+  if (data) {
+    return { props: { data: data.landingpageList.items[1] } };
+  }
+  return { props: { data: null } };
 };
 
-export const SectionResolver = ({ section }: { section: any }) => {
+export const SectionResolver = ({
+  section,
+}: {
+  section: AllFragmentModels;
+}) => {
   switch (section.__typename) {
     case 'HeroModel':
       return <HeroModel section={section} />;

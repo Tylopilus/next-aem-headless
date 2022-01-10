@@ -1,0 +1,590 @@
+schema {
+  query: QueryType
+}
+
+directive @resolver(name: String, options: String, source: String) on UNION
+
+directive @fetcher(name: String, options: String, source: String) on FIELD_DEFINITION
+
+"""Marks a connection type according to the Relay specification."""
+directive @connection(
+  """The type for which the connection is created."""
+  for: String!
+) on FIELD_DEFINITION
+
+union AllFragmentModels = HeroModel | TextModel | LandingpageModel | CtaModel
+
+type ArchiveRef {
+  type: String
+  _path: ID
+  _authorUrl: String
+  _publishUrl: String
+  size: Int
+  format: String
+}
+
+enum ArrayMode {
+  AT_LEAST_ONCE
+  ALL
+  ALL_OR_EMPTY
+  INSTANCES
+}
+
+input BooleanArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [BooleanArrayFilterExpression]!
+}
+
+input BooleanArrayFilterExpression {
+  value: Boolean
+  values: [Boolean]
+  _apply: ArrayMode
+  _operator: BooleanOperator = EQUALS
+}
+
+type BooleanArrayMetadata {
+  name: String!
+  value: [Boolean]!
+}
+
+input BooleanFilter {
+  _logOp: LogOp = AND
+  _expressions: [BooleanFilterExpression]!
+}
+
+input BooleanFilterExpression {
+  value: Boolean
+  _operator: BooleanOperator = EQUALS
+}
+
+type BooleanMetadata {
+  name: String!
+  value: Boolean!
+}
+
+enum BooleanOperator {
+  EQUALS
+}
+
+"""
+com.adobe.aem.graphql.sites.adapters.sling.ScalarComponentWrapper@1ffefbea
+"""
+scalar Calendar
+
+input CalendarArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [CalendarArrayFilterExpression]!
+}
+
+input CalendarArrayFilterExpression {
+  value: Calendar
+  values: [Calendar]
+  _apply: ArrayMode
+  _operator: CalendarOperator = AT
+}
+
+type CalendarArrayMetadata {
+  name: String!
+  value: [Calendar]!
+}
+
+input CalendarFilter {
+  _logOp: LogOp = AND
+  _expressions: [CalendarFilterExpression]!
+}
+
+input CalendarFilterExpression {
+  value: Calendar
+  _operator: CalendarOperator = AT
+}
+
+type CalendarMetadata {
+  name: String!
+  value: Calendar!
+}
+
+enum CalendarOperator {
+  AT
+  NOT_AT
+  BEFORE
+  AT_OR_BEFORE
+  AFTER
+  AT_OR_AFTER
+}
+
+type CtaModel {
+  _path: ID
+  _variation: String
+  callToAction: String
+  url: String
+  _metadata: TypedMetaData
+  _variations: [String]
+  _model: ModelInfo
+}
+
+input CtaModelArrayFilter {
+  _match: CtaModelFilter
+  _apply: ArrayMode
+}
+
+input CtaModelFilter {
+  _logOp: LogOp = AND
+  _path: IDFilter
+  _variation: StringFilter
+  callToAction: StringFilter
+  url: StringFilter
+  _variations: StringArrayFilter
+}
+
+type CtaModelResult {
+  item: CtaModel!
+  _references: [Reference]
+}
+
+type CtaModelResults {
+  items: [CtaModel]!
+  _references: [Reference]
+}
+
+"""
+com.adobe.aem.graphql.sites.adapters.sling.ScalarComponentWrapper@3aa4e07
+"""
+scalar Date
+
+input DateArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [DateArrayFilterExpression]!
+}
+
+input DateArrayFilterExpression {
+  value: Date
+  values: [Date]
+  _apply: ArrayMode
+  _operator: DateOperator = AT
+}
+
+input DateFilter {
+  _logOp: LogOp = AND
+  _expressions: [DateFilterExpression]!
+}
+
+input DateFilterExpression {
+  value: Date
+  _operator: DateOperator = AT
+}
+
+enum DateOperator {
+  AT
+  NOT_AT
+  BEFORE
+  AT_OR_BEFORE
+  AFTER
+  AT_OR_AFTER
+}
+
+type DocumentRef {
+  type: String
+  _path: ID
+  _authorUrl: String
+  _publishUrl: String
+  size: Int
+  author: String
+  format: String
+}
+
+input FloatArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [FloatArrayFilterExpression]!
+}
+
+input FloatArrayFilterExpression {
+  value: Float
+  values: [Float]
+  _apply: ArrayMode
+  _operator: FloatOperator = EQUAL
+  _sensitiveness: Float
+}
+
+type FloatArrayMetadata {
+  name: String!
+  value: [Float]!
+}
+
+input FloatFilter {
+  _logOp: LogOp = AND
+  _expressions: [FloatFilterExpression]!
+}
+
+input FloatFilterExpression {
+  value: Float
+  _operator: FloatOperator = EQUAL
+  _sensitiveness: Float
+}
+
+type FloatMetadata {
+  name: String!
+  value: Float!
+}
+
+enum FloatOperator {
+  EQUAL
+  UNEQUAL
+  GREATER
+  GREATER_EQUAL
+  LOWER
+  LOWER_EQUAL
+}
+
+type HeroModel {
+  _path: ID
+  _variation: String
+  title: String
+  subtitle: String
+  description: MultiFormatString
+  image: Reference
+  _metadata: TypedMetaData
+  _variations: [String]
+  _model: ModelInfo
+}
+
+input HeroModelArrayFilter {
+  _match: HeroModelFilter
+  _apply: ArrayMode
+}
+
+input HeroModelFilter {
+  _logOp: LogOp = AND
+  _path: IDFilter
+  _variation: StringFilter
+  title: StringFilter
+  subtitle: StringFilter
+  description: MultiFormatStringFilter
+  _variations: StringArrayFilter
+}
+
+type HeroModelResult {
+  item: HeroModel!
+  _references: [Reference]
+}
+
+type HeroModelResults {
+  items: [HeroModel]!
+  _references: [Reference]
+}
+
+input IDArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [IDArrayFilterExpression]!
+}
+
+input IDArrayFilterExpression {
+  value: ID
+  values: [ID]
+  _apply: ArrayMode
+  _operator: IDOperator = EQUALS
+}
+
+input IDFilter {
+  _logOp: LogOp = AND
+  _expressions: [IDFilterExpression]!
+}
+
+input IDFilterExpression {
+  value: ID
+  _operator: IDOperator = EQUALS
+}
+
+enum IDOperator {
+  EQUALS
+  EQUALS_NOT
+  STARTS_WITH
+}
+
+type ImageRef {
+  type: String
+  _path: ID
+  _authorUrl: String
+  _publishUrl: String
+  width: Int
+  height: Int
+  mimeType: String
+}
+
+input IntArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [IntArrayFilterExpression]!
+}
+
+input IntArrayFilterExpression {
+  value: Int
+  values: [Int]
+  _apply: ArrayMode
+  _operator: IntOperator = EQUAL
+}
+
+type IntArrayMetadata {
+  name: String!
+  value: [Int]!
+}
+
+input IntFilter {
+  _logOp: LogOp = AND
+  _expressions: [IntFilterExpression]!
+}
+
+input IntFilterExpression {
+  value: Int
+  _operator: IntOperator = EQUAL
+}
+
+type IntMetadata {
+  name: String!
+  value: Int!
+}
+
+enum IntOperator {
+  EQUAL
+  UNEQUAL
+  GREATER
+  GREATER_EQUAL
+  LOWER
+  LOWER_EQUAL
+}
+
+"""
+com.adobe.aem.graphql.sites.adapters.sling.ScalarComponentWrapper@4c83027b
+"""
+scalar Json
+
+type LandingpageModel {
+  _path: ID
+  _variation: String
+  title: String
+  slug: String
+  sections: [AllFragmentModels]
+  _metadata: TypedMetaData
+  _variations: [String]
+  _model: ModelInfo
+}
+
+input LandingpageModelArrayFilter {
+  _match: LandingpageModelFilter
+  _apply: ArrayMode
+}
+
+input LandingpageModelFilter {
+  _logOp: LogOp = AND
+  _path: IDFilter
+  _variation: StringFilter
+  title: StringFilter
+  slug: StringFilter
+  _variations: StringArrayFilter
+}
+
+type LandingpageModelResult {
+  item: LandingpageModel!
+  _references: [Reference]
+}
+
+type LandingpageModelResults {
+  items: [LandingpageModel]!
+  _references: [Reference]
+}
+
+enum LogOp {
+  AND
+  OR
+}
+
+type ModelInfo {
+  _path: ID
+  title: String
+}
+
+type MultiFormatString {
+  html: String
+  markdown: String
+  plaintext: String
+  json: Json
+}
+
+input MultiFormatStringArrayFilter {
+  _match: MultiFormatStringFilter
+  _apply: ArrayMode
+}
+
+input MultiFormatStringFilter {
+  _logOp: LogOp = AND
+  html: StringFilter
+  markdown: StringFilter
+  plaintext: StringFilter
+}
+
+type MultimediaRef {
+  type: String
+  _path: ID
+  _authorUrl: String
+  _publishUrl: String
+  size: Int
+  format: String
+}
+
+type PageRef {
+  type: String
+  _path: ID
+  _authorUrl: String
+  _publishUrl: String
+}
+
+type QueryType {
+  """Get a single `hero`, specified by its path and optional variation"""
+  heroByPath(_path: String!, variation: String): HeroModelResult!
+
+  """Get a single `text`, specified by its path and optional variation"""
+  textByPath(_path: String!, variation: String): TextModelResult!
+
+  """
+  Get a single `landingpage`, specified by its path and optional variation
+  """
+  landingpageByPath(_path: String!, variation: String): LandingpageModelResult!
+
+  """Get a single `cta`, specified by its path and optional variation"""
+  ctaByPath(_path: String!, variation: String): CtaModelResult!
+
+  """Get multiple `hero` objects"""
+  heroList(filter: HeroModelFilter, variation: String, _locale: String): HeroModelResults!
+
+  """Get multiple `text` objects"""
+  textList(filter: TextModelFilter, variation: String, _locale: String): TextModelResults!
+
+  """Get multiple `landingpage` objects"""
+  landingpageList(filter: LandingpageModelFilter, variation: String, _locale: String): LandingpageModelResults!
+
+  """Get multiple `cta` objects"""
+  ctaList(filter: CtaModelFilter, variation: String, _locale: String): CtaModelResults!
+}
+
+union Reference = PageRef | ImageRef | MultimediaRef | ArchiveRef | DocumentRef | HeroModel | TextModel | LandingpageModel | CtaModel
+
+input StringArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [StringArrayFilterExpression]!
+}
+
+input StringArrayFilterExpression {
+  value: String
+  values: [String]
+  _apply: ArrayMode
+  _operator: StringOperator = EQUALS
+}
+
+type StringArrayMetadata {
+  name: String!
+  value: [String]!
+}
+
+input StringFilter {
+  _logOp: LogOp = AND
+  _expressions: [StringFilterExpression]!
+}
+
+input StringFilterExpression {
+  value: String
+  _operator: StringOperator = EQUALS
+  _ignoreCase: Boolean
+}
+
+type StringMetadata {
+  name: String!
+  value: String!
+}
+
+enum StringOperator {
+  EQUALS
+  EQUALS_NOT
+  CONTAINS
+  CONTAINS_NOT
+}
+
+type TextModel {
+  _path: ID
+  _variation: String
+  title: String
+  content: MultiFormatString
+  _metadata: TypedMetaData
+  _variations: [String]
+  _model: ModelInfo
+}
+
+input TextModelArrayFilter {
+  _match: TextModelFilter
+  _apply: ArrayMode
+}
+
+input TextModelFilter {
+  _logOp: LogOp = AND
+  _path: IDFilter
+  _variation: StringFilter
+  title: StringFilter
+  content: MultiFormatStringFilter
+  _variations: StringArrayFilter
+}
+
+type TextModelResult {
+  item: TextModel!
+  _references: [Reference]
+}
+
+type TextModelResults {
+  items: [TextModel]!
+  _references: [Reference]
+}
+
+"""
+com.adobe.aem.graphql.sites.adapters.sling.ScalarComponentWrapper@74ae09b5
+"""
+scalar Time
+
+input TimeArrayFilter {
+  _logOp: LogOp = AND
+  _expressions: [TimeArrayFilterExpression]!
+}
+
+input TimeArrayFilterExpression {
+  value: Time
+  values: [Time]
+  _apply: ArrayMode
+  _operator: TimeOperator = AT
+}
+
+input TimeFilter {
+  _logOp: LogOp = AND
+  _expressions: [TimeFilterExpression]!
+}
+
+input TimeFilterExpression {
+  value: Time
+  _operator: TimeOperator = AT
+}
+
+enum TimeOperator {
+  AT
+  NOT_AT
+  BEFORE
+  AT_OR_BEFORE
+  AFTER
+  AT_OR_AFTER
+}
+
+type TypedMetaData {
+  stringMetadata: [StringMetadata]!
+  stringArrayMetadata: [StringArrayMetadata]!
+  intMetadata: [IntMetadata]!
+  intArrayMetadata: [IntArrayMetadata]!
+  floatMetadata: [FloatMetadata]!
+  floatArrayMetadata: [FloatArrayMetadata]!
+  booleanMetadata: [BooleanMetadata]!
+  booleanArrayMetadata: [BooleanArrayMetadata]!
+  calendarMetadata: [CalendarMetadata]!
+  calendarArrayMetadata: [CalendarArrayMetadata]!
+}

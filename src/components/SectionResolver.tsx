@@ -14,7 +14,5 @@ export const SectionResolver = ({
       return <TextModel section={section} />;
     case 'CtaModel':
       return <div>CtaModel</div>;
-    default:
-      return <div>{section.__typename}</div>;
   }
 };

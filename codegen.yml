@@ -1,7 +1,9 @@
-schema: output.gql
+schema:
+  - 'http://localhost:4502/content/_cq_graphql/actoolminimal/endpoint.json':
+      headers: { Authorization: 'Basic YWRtaW46YWRtaW4=' }
 documents: ./src/queries/**/*.ts
 generates:
-  types.ts:
+  ./src/utils/types.ts:
     plugins:
       - typescript
     config:
